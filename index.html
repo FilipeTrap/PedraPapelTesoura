@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Pedra, Papel e Tesoura</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 600px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .hands-wrapper {
+            display: flex;
+            gap: 20px;
+        }
+
+        .minhasMaos {
+            transform: scaleX(-1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            left: -142px; 
+        }
+        .maosContrarias {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            left: 134px; 
+        }
+
+        .hand-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+        
+        }
+        .hand-image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: scaleX(-1);
+}
+
+        .non-clickable-image {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .clickable-image {
+            cursor: pointer;
+        }
+
+        .result-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #imgPedra{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            top: 0px; 
+            left: 0px; 
+            -webkit-transform: scaleX(-1);  
+    transform: scaleX(-1);  
+        }
+        #imgPapel{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            top: 0px; 
+            left: 0px; 
+            -webkit-transform: scaleX(-1);  
+    transform: scaleX(-1);  
+        }
+        #imgTesoura{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            top: 0px; 
+            left: 0px; 
+            -webkit-transform: scaleX(-1);  
+    transform: scaleX(-1);  
+        }
+        #imgPedra2{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            top: 0px; 
+            left: 0px; 
+            -webkit-transform: scaleX(-1);  
+    transform: scaleX(-1);  
+        }
+        #imgPapel2{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            top: 0px; 
+            left: 0px; 
+            -webkit-transform: scaleX(-1);  
+    transform: scaleX(-1);  
+        }
+        #imgTesoura2{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            top: 0px; 
+            left: 0px; 
+            -webkit-transform: scaleX(-1);  
+    transform: scaleX(-1);  
+        }
+
+        /*ANIMAÇÕES */
+        .image:hover {
+  transform: scale(1.1);
+}
+
+.animapedra1 {
+  animation-name: animapedra1a;
+  animation-duration: 1.0s;
+  animation-iteration-count: 1;
+}
+
+@keyframes animapedra1a {
+  0% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+  50% {
+    transform: translate(-160px, 119px) scaleX(-1);
+  }
+  100% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+}
+
+.animapapel1 {
+  animation-name: animapapel1a;
+  animation-duration: 1.0s;
+  animation-iteration-count: 1;
+}
+
+@keyframes animapapel1a {
+  0% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+  50% {
+    transform: translate(-160px, 0) scaleX(-1);
+  }
+  100% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+}
+
+.animatesoura1 {
+  animation-name: animatesoura1a;
+  animation-duration: 1.0s;
+  animation-iteration-count: 1;
+}
+
+@keyframes animatesoura1a {
+  0% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+  50% {
+    transform: translate(-160px, -119px) scaleX(-1);
+  }
+  100% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+}
+
+.animapedra2 {
+  animation-name: animapedra2a;
+  animation-duration: 1.0s;
+  animation-iteration-count: 1;
+}
+
+@keyframes animapedra2a {
+  0% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+  50% {
+    transform: translate(-110px, 120px) scaleX(-1);
+  }
+  100% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+}
+
+.animapapel2 {
+  animation-name: animapapel2a;
+  animation-duration: 1.0s;
+  animation-iteration-count: 1;
+}
+
+@keyframes animapapel2a {
+  0% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+  50% {
+    transform: translate(-110px, 0px) scaleX(-1);
+  }
+  100% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+}
+
+.animatesoura2 {
+  animation-name: animatesoura2a;
+  animation-duration: 1.0s;
+  animation-iteration-count: 1;
+}
+
+@keyframes animatesoura2a {
+  0% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+  50% {
+    transform: translate(-110px, -100px) scaleX(-1);
+  }
+  100% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+}
+#ganhou1{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+           
+            top: 166px; 
+            left: 237px; 
+            z-index: 2;
+        }
+        #perdeu1{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            
+            top: 166px; 
+            left: 237px; 
+            z-index: 2;
+        }
+
+        #ganhou2{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+           
+            top: 166px; 
+            left: 363px; 
+            z-index: 2;
+        }
+        #perdeu2{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            
+            top: 166px; 
+            left: 363px; 
+            z-index: 2;
+        }
+        #contador1show{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            font-family: 'm5x7', Arial, sans-serif;
+  font-size: 50px;
+            top: 80px; 
+            left: 80px; 
+            z-index: 2;
+        }
+        #contador2show{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            font-family: 'm5x7', Arial, sans-serif;
+            font-size: 50px;
+            top: 80px; 
+            left: 541px; 
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo de Pedra, Papel e Tesoura</h1>
+        <div class="hands-wrapper">
+
+            <div id="contador1show" class="image"></div>
+            <div id="contador2show" class="image"></div>
+
+            <img style="visibility:hidden" id="perdeu1" src="https://i.pinimg.com/originals/8f/f9/f9/8ff9f9b0e469f751f47fc0a995a172ad.gif" alt="">
+            <img style="visibility:hidden" id="ganhou1" src="https://gifdb.com/images/high/green-circle-ok-check-mark-6uvrba3bd0fi8ue9.gif" alt="">
+            <img style="visibility:hidden" id="perdeu2" src="https://i.pinimg.com/originals/8f/f9/f9/8ff9f9b0e469f751f47fc0a995a172ad.gif" alt="">
+            <img style="visibility:hidden" id="ganhou2" src="https://gifdb.com/images/high/green-circle-ok-check-mark-6uvrba3bd0fi8ue9.gif" alt="">
+
+            <div class="minhasMaos">
+                <button id="btnPedra" onclick="jogo('imgPedra','animapedra1')" class="image">
+                  <img id="imgPedra" src="https://genialcursos.com.br/jogo/pedra-papel-tesoura/img/pedra-reverse.jpg" alt="Pedra">
+                </button>
+                <button id="btnPapel" onclick="jogo('imgPapel','animapapel1')" class="image">
+                  <img id="imgPapel" src="https://genialcursos.com.br/jogo/pedra-papel-tesoura/img/papel-reverse.jpg" alt="Papel">
+                </button>
+                <button id="btnTesoura" onclick="jogo('imgTesoura','animatesoura1')" class="image">
+                  <img id="imgTesoura" src="https://genialcursos.com.br/jogo/pedra-papel-tesoura/img/tesoura-reverse.jpg" alt="Tesoura">
+                </button>
+              </div>
+
+            <div class="maosContrarias">
+                <img  id="imgPedra2" src="https://genialcursos.com.br/jogo/pedra-papel-tesoura/img/pedra-reverse.jpg" alt="Pedra">
+                <img  id="imgPapel2" src="https://genialcursos.com.br/jogo/pedra-papel-tesoura/img/papel-reverse.jpg" alt="Papel">
+                <img  id="imgTesoura2" src="https://genialcursos.com.br/jogo/pedra-papel-tesoura/img/tesoura-reverse.jpg" alt="Tesoura">
+            </div>
+        </div>
+        <div class="result-container">
+            <span id="result"></span>
+        </div>
+    </div>
+
+    <script>
+            var contador1 = 0 
+            var contador1show = document.getElementById('contador1show');
+            contador1show.innerHTML =  contador1
+            var contador2 = 0 
+            var contador2show = document.getElementById('contador2show');
+            contador2show.innerHTML =  contador2
+
+        function jogo(escolha,animação){
+
+    var jogadaInimigo = Math.floor(Math.random() * 3) + 1;
+    var escolhaInimgo = '';
+    var animaçãoInimigo = '';
+    if(jogadaInimigo == 1){
+        escolhaInimgo = 'imgPedra2';
+        animaçãoInimigo = 'animapedra2';
+    }
+    if(jogadaInimigo == 2){
+        escolhaInimgo = 'imgPapel2';
+        animaçãoInimigo = 'animapapel2';
+    }
+    if(jogadaInimigo == 3){
+        escolhaInimgo = 'imgTesoura2';
+        animaçãoInimigo = 'animatesoura2';
+    }
+
+    if(jogadaInimigo == 1 && escolha == 'imgTesoura'){
+        console.log("inimigo colocou pedra VC perdeu");
+        resultado('PERDEU',escolha,escolhaInimgo)
+    }
+    if(jogadaInimigo == 1 && escolha == 'imgPapel'){
+        console.log("inimigo colocou pedra VC GANHOU");
+        resultado('GANHOU',escolha,escolhaInimgo)
+    }
+    if(jogadaInimigo == 1 && escolha == 'imgPedra'){
+        console.log("inimigo tambem colocou pedra DEU EMPATE");
+        resultado('EMPATE',escolha,escolhaInimgo)
+    }
+
+    if(jogadaInimigo == 2 && escolha == 'imgPedra'){
+        console.log("inimigo colocou papel VC PERDEU");
+        resultado('PERDEU',escolha,escolhaInimgo)
+    }
+    if(jogadaInimigo == 2 && escolha == 'imgTesoura'){
+        console.log("inimigo colocou papel VC GANHOU");
+        resultado('GANHOU',escolha,escolhaInimgo)
+    }
+    if(jogadaInimigo == 2 && escolha == 'imgPapel'){
+        console.log("inimigo tambem colocou papel DEU EMPATE");
+        resultado('EMPATE',escolha,escolhaInimgo)
+    }
+    if(jogadaInimigo == 3 && escolha == 'imgPedra'){
+        console.log("inimigo colocou tesoura VC GANHOU");
+        resultado('GANHOU',escolha,escolhaInimgo)
+    }
+    if(jogadaInimigo == 3 && escolha == 'imgPapel'){
+        console.log("inimigo colocou tesoura VC PERDEU");
+        resultado('PERDEU',escolha,escolhaInimgo)
+    }
+    if(jogadaInimigo == 3 && escolha == 'imgTesoura'){
+        console.log("inimigo tambem colocou tesoura DEU EMPATE");
+        resultado('EMPATE',escolha,escolhaInimgo)
+    }
+            document.getElementById(escolha).className = animação;
+            document.getElementById(escolhaInimgo).className = animaçãoInimigo;
+            setTimeout(function() {
+                document.getElementById(escolha).style.animationPlayState = "paused";
+                document.getElementById(escolhaInimgo).style.animationPlayState = "paused";
+            }, 500);
+            
+        }
+    
+    function resultado(resultado,escolha,enemyEscolha){
+
+        if (resultado == 'GANHOU'){
+            document.getElementById('perdeu2').style.visibility='visible'; 
+            document.getElementById('ganhou1').style.visibility='visible'; 
+        contador1 ++;
+        contador1show = document.getElementById('contador1show');
+        contador1show.innerHTML =  contador1;
+        }
+        if (resultado == 'PERDEU'){
+            document.getElementById('perdeu1').style.visibility='visible'; 
+            document.getElementById('ganhou2').style.visibility='visible'; 
+        contador2 ++;
+        contador2show = document.getElementById('contador2show');
+        contador2show.innerHTML =  contador2;
+        }
+
+        setTimeout(function() {
+                document.getElementById(escolha).style.animationPlayState = "running";
+                document.getElementById(enemyEscolha).style.animationPlayState = "running";
+              
+            }, 1000);
+            setTimeout(function() {
+               
+               document.getElementById(escolha).className = '';
+               document.getElementById(enemyEscolha).className = '';
+            document.getElementById('perdeu1').style.visibility='hidden'; 
+            document.getElementById('ganhou2').style.visibility='hidden'; 
+            document.getElementById('perdeu2').style.visibility='hidden'; 
+            document.getElementById('ganhou1').style.visibility='hidden'; 
+            }, 1500);
+       
+        }
+
+    </script>
+</body>
+</html>
